@@ -35,7 +35,7 @@ type Intrady struct {
 }
 
 func listIntraday(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
-	quoteContext, err := connect(ctx, d)
+	quoteContext, err := getQuoteContext(ctx, d)
 
 	if err != nil {
 		return nil, err

@@ -19,7 +19,7 @@ func tableOptionQuote(ctx context.Context) *plugin.Table {
 }
 
 func listOptionQuote(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
-	quoteContext, err := connect(ctx, d)
+	quoteContext, err := getQuoteContext(ctx, d)
 
 	if err != nil {
 		return nil, err
