@@ -42,7 +42,7 @@ cd steampipe-plugin-longport
 Build, which automatically installs the new version to your `~/.steampipe/plugins` directory:
 
 ```
-make
+make run
 ```
 
 Configure the plugin:

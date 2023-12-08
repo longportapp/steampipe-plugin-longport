@@ -13,7 +13,7 @@ import (
 func tableQuote(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "longport_quote",
-		Description: "This API is used to obtain the real-time quotes of securities, and supports all types of securities.",
+		Description: "Real-time Quotes Of Securities.",
 		List: &plugin.ListConfig{
 			Hydrate:    listQuote,
 			KeyColumns: plugin.SingleColumn("symbol"),

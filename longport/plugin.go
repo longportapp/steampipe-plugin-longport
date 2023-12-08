@@ -16,8 +16,9 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		},
 		DefaultTransform: transform.FromGo().NullIfZero(),
 		TableMap: map[string]*plugin.Table{
-			"longport_static_info": tableStaticInfo(ctx),
-			"longport_quote":       tableQuote(ctx),
+			"longport_static_info":  tableStaticInfo(ctx),
+			"longport_quote":        tableQuote(ctx),
+			"longport_option_quote": tableOptionQuote(ctx),
 		},
 	}
 	return p
