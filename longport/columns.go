@@ -182,3 +182,23 @@ func transformBrokers(ctx context.Context, d *transform.TransformData) (interfac
 
 	return items, nil
 }
+
+/*
+	type ParticipantInfo struct {
+		BrokerIds         []int32
+		ParticipantNameCn string
+		ParticipantNameEn string
+		ParticipantNameHk string
+	}
+*/
+func participantColumns(optionalCols ...string) []*plugin.Column {
+	cols := []*plugin.Column{
+		// Top columns
+		{Name: "broker_ids", Type: proto.ColumnType_JSON, Transform: transform.FromField("BrokerIds"), Description: "broker IDs"},
+		{Name: "participant_name_cn", Type: proto.ColumnType_STRING, Transform: transform.FromField("ParticipantNameCn"), Description: "participant name (zh-CN)"},
+		{Name: "participant_name_en", Type: proto.ColumnType_STRING, Transform: transform.FromField("ParticipantNameEn"), Description: "participant name (en)"},
+		{Name: "participant_name_hk", Type: proto.ColumnType_STRING, Transform: transform.FromField("ParticipantNameHk"), Description: "participant name (hk)"},
+	}
+
+	return cols
+}

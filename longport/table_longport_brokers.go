@@ -9,7 +9,7 @@ import (
 func tableBrokers(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "longport_brokers",
-		Description: "Obtain the real-time broker queue data of security.",
+		Description: "Get Security Brokers.",
 		List: &plugin.ListConfig{
 			Hydrate:    listBrokers,
 			KeyColumns: plugin.SingleColumn("symbol"),

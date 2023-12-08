@@ -22,6 +22,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"longport_warrant_quote": tableWarrantQuote(ctx),
 			"longport_depth":         tableDepth(ctx),
 			"longport_brokers":       tableBrokers(ctx),
+			"longport_participants":  tableParticipants(ctx),
 		},
 	}
 	return p
