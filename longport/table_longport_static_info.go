@@ -11,7 +11,7 @@ import (
 func tableStaticInfo(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "longport_static_info",
-		Description: "Lookup Basic Information Of Securities.",
+		Description: "Basic Information Of Securities.",
 		List: &plugin.ListConfig{
 			Hydrate:    listStaticInfo,
 			KeyColumns: plugin.SingleColumn("symbol"),
@@ -21,25 +21,19 @@ func tableStaticInfo(ctx context.Context) *plugin.Table {
 }
 
 func listStaticInfo(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
-	var logger = plugin.Logger(ctx).With("plugin", "longport_static_info")
-
 	quoteContext, err := connect(ctx, d)
-	logger.Info("quoteContext", quoteContext)
 
 	if err != nil {
-		logger.Error("connection_error", err)
 		return nil, err
 	}
 
 	symbols, err := symbolList(ctx, d, p)
 	if err != nil {
-		logger.Error("where_error", err)
 		return nil, err
 	}
 
 	infos, err := quoteContext.StaticInfo(ctx, symbols)
 	if err != nil {
-		logger.Error("query_error", err)
 		return nil, err
 	}
 

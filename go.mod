@@ -1,4 +1,4 @@
-module github.com/turbot/steampipe-plugin-longport
+module github.com/longportapp/steampipe-plugin-longport
 
 go 1.21
 

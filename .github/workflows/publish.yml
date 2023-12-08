@@ -1,4 +1,4 @@
-name: Build and Deploy OCI Image
+name: Build and Deploy
 
 on:
   push:

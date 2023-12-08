@@ -14,7 +14,7 @@ func tableOptionQuote(ctx context.Context) *plugin.Table {
 			Hydrate:    listOptionQuote,
 			KeyColumns: plugin.SingleColumn("symbol"),
 		},
-		Columns: quoteColumns(),
+		Columns: quoteColumns("pre_market_quote", "post_market_quote"),
 	}
 }
 
