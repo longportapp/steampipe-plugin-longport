@@ -30,3 +30,26 @@ Output:
 | BABA.US | 72.33     | 71.49      | 71.545 | 72.37  | 71.44  | 18966685  | 1367696030     | 1701982845 | 0            |
 +---------+-----------+------------+--------+--------+--------+-----------+----------------+------------+--------------+
 ```
+
+### Get Real-time Quotes Of Securities with Pre-market
+
+```sql
+select
+  symbol, last_done, pre_market_quote->>'last_done' as pre_last_done
+from
+  longport_quote
+where
+  symbol in ('BABA.US', 'TSLA.US', '700.HK');
+```
+
+Output:
+
+```
++---------+-----------+---------------+
+| symbol  | last_done | pre_last_done |
++---------+-----------+---------------+
+| TSLA.US | 242.64    | 241.65        |
+| 700.HK  | 307.4     | <null>        |
+| BABA.US | 72.33     | 71.52         |
++---------+-----------+---------------+
+```
