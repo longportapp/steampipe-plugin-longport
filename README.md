@@ -30,7 +30,13 @@ connection "longport" {
 }
 ```
 
-Run a query:
+Run a query, use `steampipe query` command to startup Steampipe Query interface.
+
+```bash
+$ steampipe query
+```
+
+Now you can write SQL now:
 
 ```sql
 select
