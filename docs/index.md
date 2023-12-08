@@ -1,13 +1,13 @@
 ---
 organization: longportapp
-category: ['finance', 'security']
-icon_url: '/images/plugins/turbot/twitter.svg'
+category: ['SaaS']
+icon_url: 'https://github.com/longportapp/steampipe-plugin-longport/assets/5518/1ca77b56-2cd1-4d85-ae02-9483da6ae9a1'
 brand_color: '#00A3FF'
 display_name: LongPort
 name: longport
 description: Steampipe plugin for Query from LongPort OpenAPI.
 og_description: Query LongPort market data with SQL! Open source CLI. No DB required.
-og_image: '/images/plugins/turbot/twitter-social-graphic.png'
+og_image: 'https://pub.lbkrs.com/files/202211/sJswdGqSX1xDqrES/lonport-seo-img.png'
 ---
 
 # LongPort + Steampipe
