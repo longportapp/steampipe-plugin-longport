@@ -24,6 +24,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"longport_brokers":       tableBrokers(ctx),
 			"longport_participants":  tableParticipants(ctx),
 			"longport_trades":        tableTrades(ctx),
+			"longport_intraday":      tableIntraday(ctx),
 		},
 	}
 	return p

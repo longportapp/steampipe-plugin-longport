@@ -2,7 +2,6 @@ package longport
 
 import (
 	"context"
-	"errors"
 
 	"github.com/longportapp/openapi-go/quote"
 	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
@@ -18,8 +17,21 @@ func tableTrades(ctx context.Context) *plugin.Table {
 			Hydrate:    listTrades,
 			KeyColumns: plugin.SingleColumn("symbol"),
 		},
-		Columns: tradeColumns(),
+		Columns: []*plugin.Column{
+			{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Symbol"},
+			{Name: "price", Type: proto.ColumnType_STRING, Transform: transform.FromField("Trade.Price"), Description: "Price"},
+			{Name: "volume", Type: proto.ColumnType_INT, Transform: transform.FromField("Trade.Volume"), Description: "Volume"},
+			{Name: "trade_type", Type: proto.ColumnType_STRING, Transform: transform.FromField("Trade.TradeType"), Description: "TradeType"},
+			{Name: "direction", Type: proto.ColumnType_STRING, Transform: transform.FromField("Trade.Direction"), Description: "Trade direction, 0 - neutral, 1 - down, 2 - up"},
+			{Name: "trade_session", Type: proto.ColumnType_INT, Transform: transform.FromField("Trade.TradeSession"), Description: ""},
+			{Name: "timestamp", Type: proto.ColumnType_INT, Transform: transform.FromField("Trade.Timestamp"), Description: "Time of trading"},
+		},
 	}
+}
+
+type Trade struct {
+	Symbol string
+	Trade  *quote.Trade
 }
 
 func listTrades(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
@@ -45,46 +57,13 @@ func listTrades(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData)
 	}
 
 	for _, trade := range trades {
-		d.StreamListItem(ctx, trade)
+		var info = Trade{
+			Symbol: symbol,
+			Trade:  trade,
+		}
+
+		d.StreamListItem(ctx, info)
 	}
 
 	return nil, nil
-}
-
-func tradeColumns(optionalCols ...string) []*plugin.Column {
-	cols := []*plugin.Column{
-		// Top columns
-		{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Symbol"},
-		{Name: "trades", Type: proto.ColumnType_JSON, Transform: transform.FromField("trades").Transform(transformTrades), Description: "Price"},
-	}
-
-	return cols
-}
-
-func transformTrades(ctx context.Context, d *transform.TransformData) (interface{}, error) {
-	items := []map[string]interface{}{}
-
-	if d.Value == nil {
-		return items, nil
-	}
-
-	trades, ok := d.Value.([]*quote.Trade)
-	if !ok {
-		return items, errors.New("transformBrokers failed")
-	}
-
-	for _, t := range trades {
-		var item = map[string]interface{}{}
-		if t != nil {
-			item["price"] = t.Price
-			item["volume"] = t.Volume
-			item["timestamp"] = t.Timestamp
-			item["trade_type"] = t.TradeType
-			item["direction"] = t.Direction
-			item["trade_session"] = t.TradeSession
-		}
-		items = append(items, item)
-	}
-
-	return items, nil
 }
