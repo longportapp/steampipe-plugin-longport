@@ -16,7 +16,7 @@ func tableCandlesticks(ctx context.Context) *plugin.Table {
 		Description: "Get Security Trades.",
 		List: &plugin.ListConfig{
 			Hydrate:    listCandlesticks,
-			KeyColumns: plugin.AnyColumn([]string{"symbol", "period", "adjust_type"}),
+			KeyColumns: plugin.OptionalColumns([]string{"symbol", "period", "adjust_type"}),
 		},
 		Columns: []*plugin.Column{
 			{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Symbol"},

@@ -50,6 +50,8 @@ Output:
 
 ## Tables
 
+### Quote
+
 - [longport_brokers](./docs/tables/longport_brokers.md)
 - [longport_candlesticks](./docs/tables/longport_candlesticks.md)
 - [longport_depth](./docs/tables/longport_depth.md)
@@ -61,6 +63,13 @@ Output:
 - [longport_static_info](./docs/tables/longport_static_info.md)
 - [longport_trades](./docs/tables/longport_trades.md)
 - [longport_warrant_quote](./docs/tables/longport_warrant_quote.md)
+
+### Trade
+
+- [longport_today_executions](./docs/tables/longport_today_executions.md)
+- [longport_history_executions](./docs/tables/longport_history_executions.md)
+- [longport_today_orders](./docs/tables/longport_today_orders.md)
+- [longport_history_orders](./docs/tables/longport_history_orders.md)
 
 ## License
 

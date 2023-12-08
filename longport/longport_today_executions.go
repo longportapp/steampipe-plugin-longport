@@ -9,13 +9,13 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
-func longport_history_executions(ctx context.Context) *plugin.Table {
+func longport_today_executions(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
-		Name:        "longport_history_executions",
+		Name:        "longport_today_executions",
 		Description: "History Executions.",
 		List: &plugin.ListConfig{
-			Hydrate:    list_longport_history_executions,
-			KeyColumns: plugin.OptionalColumns([]string{"symbol"}),
+			Hydrate:    list_longport_today_executions,
+			KeyColumns: plugin.OptionalColumns([]string{"symbol", "order_id"}),
 		},
 		Columns: []*plugin.Column{
 			{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Stock symbol"},
@@ -28,7 +28,7 @@ func longport_history_executions(ctx context.Context) *plugin.Table {
 	}
 }
 
-func list_longport_history_executions(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
+func list_longport_today_executions(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
 	context, err := getTradeContext(ctx, d)
 
 	if err != nil {
@@ -40,8 +40,14 @@ func list_longport_history_executions(ctx context.Context, d *plugin.QueryData, 
 		return nil, err
 	}
 
-	items, err := context.HistoryExecutions(ctx, &trade.GetHistoryExecutions{
-		Symbol: symbol,
+	orderId, err := equalString(ctx, d, p, "order_id")
+	if err != nil {
+		return nil, err
+	}
+
+	items, err := context.TodayExecutions(ctx, &trade.GetTodayExecutions{
+		Symbol:  symbol,
+		OrderId: orderId,
 	})
 	if err != nil {
 		return nil, err

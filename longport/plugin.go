@@ -27,7 +27,10 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"longport_intraday":      tableIntraday(ctx),
 			"longport_candlesticks":  tableCandlesticks(ctx),
 			// Trade
-			"longport_history_executions": tableHistoryExecutions(ctx),
+			"longport_history_executions": longport_history_executions(ctx),
+			"longport_today_executions":   longport_today_executions(ctx),
+			"longport_history_orders":     longport_history_orders(ctx),
+			"longport_today_orders":       longport_today_orders(ctx),
 		},
 	}
 	return p
