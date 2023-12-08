@@ -24,7 +24,6 @@ func quoteColumns(optionalCols ...string) []*plugin.Column {
 		{Name: "turnover", Type: proto.ColumnType_STRING, Transform: transform.FromField("Turnover"), Description: "Turnover"},
 		{Name: "timestamp", Type: proto.ColumnType_INT, Transform: transform.FromField("Timestamp"), Description: "Time of latest price"},
 		{Name: "trade_status", Type: proto.ColumnType_INT, Transform: transform.FromField("TradeStatus"), Description: "Security trading status, see TradeStatus"},
-		{Name: "post_market_quote", Type: proto.ColumnType_JSON, Transform: transform.FromField("PostMarketQuote").Transform(transformPrePostQuote), Description: "After-hours quote"},
 	}
 
 	// https://github.com/longportapp/openapi-go/blob/main/quote/types.go#L329
@@ -104,6 +103,45 @@ func transformWarrantExtend(ctx context.Context, d *transform.TransformData) (in
 		items["upper_strike_price"] = t.UpperStrikePrice
 		items["lower_strike_price"] = t.LowerStrikePrice
 		items["underlying_symbol"] = t.UpperStrikePrice
+	}
+
+	return items, nil
+}
+
+// https://github.com/longportapp/openapi-go/blob/main/quote/types.go#L340C6-L340C19
+func depthColumns(optionalCols ...string) []*plugin.Column {
+	cols := []*plugin.Column{
+		// Top columns
+		{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Security code"},
+		{Name: "ask", Type: proto.ColumnType_JSON, Transform: transform.FromField("Ask").Transform((transformDepth)), Description: "Ask depth"},
+		{Name: "bid", Type: proto.ColumnType_JSON, Transform: transform.FromField("Bid").Transform((transformDepth)), Description: "Bid depth"},
+	}
+
+	return cols
+}
+
+// https://github.com/longportapp/openapi-go/blob/main/quote/types.go#L133
+func transformDepth(ctx context.Context, d *transform.TransformData) (interface{}, error) {
+	items := []map[string]interface{}{}
+
+	if d.Value == nil {
+		return items, nil
+	}
+
+	depths, ok := d.Value.([]*quote.Depth)
+	if !ok {
+		return items, errors.New("transformDepth failed")
+	}
+
+	for _, t := range depths {
+		var item = map[string]interface{}{}
+		if t != nil {
+			item["position"] = t.Position
+			item["price"] = t.Price
+			item["volume"] = t.Volume
+			item["order_num"] = t.OrderNum
+		}
+		items = append(items, item)
 	}
 
 	return items, nil

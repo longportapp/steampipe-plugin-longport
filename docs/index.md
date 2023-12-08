@@ -39,10 +39,6 @@ Output:
 +---------+---------------------------------------------+----------+----------+----------+--------------+---------------------+
 ```
 
-## Documentation
-
-- **[Table definitions & examples →](/plugins/longportapp/longport/tables)**
-
 ## Get started
 
 ### Install
@@ -63,7 +59,7 @@ Installing the latest longport plugin will create a config file (`~/.steampipe/c
 
 ```hcl
 connection "longport" {
-  plugin = "longport"
+  plugin = "longportapp/longport"
 
   app_key      = "YOUR_APP_KEY"
   app_secret   = "YOUR_ACCESS_SECRET"

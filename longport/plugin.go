@@ -20,6 +20,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 			"longport_quote":         tableQuote(ctx),
 			"longport_option_quote":  tableOptionQuote(ctx),
 			"longport_warrant_quote": tableWarrantQuote(ctx),
+			"longport_depth":         tableDepth(ctx),
 		},
 	}
 	return p

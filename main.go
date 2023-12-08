@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/turbot/steampipe-plugin-longport/longport"
+	"github.com/longportapp/steampipe-plugin-longport/longport"
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 

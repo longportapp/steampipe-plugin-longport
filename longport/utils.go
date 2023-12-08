@@ -14,7 +14,7 @@ import (
 func connect(ctx context.Context, d *plugin.QueryData) (*quote.QuoteContext, error) {
 	var _ = plugin.Logger(ctx)
 	// Load connection from cache, which preserves throttling protection etc
-	cacheKey := "longport/quote"
+	cacheKey := "longport-connection"
 	if cachedData, ok := d.ConnectionManager.Cache.Get(cacheKey); ok {
 		return cachedData.(*quote.QuoteContext), nil
 	}
@@ -68,4 +68,9 @@ func symbolList(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData)
 	quals := d.EqualsQuals
 	symbols := []string{quals["symbol"].GetStringValue()}
 	return symbols, nil
+}
+
+func symbolString(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (string, error) {
+	quals := d.EqualsQuals
+	return quals["symbol"].GetStringValue(), nil
 }
