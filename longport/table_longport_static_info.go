@@ -37,8 +37,6 @@ func listStaticInfo(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateD
 		return nil, err
 	}
 
-	logger.Info("symbols", symbols)
-
 	infos, err := quoteContext.StaticInfo(ctx, symbols)
 	if err != nil {
 		logger.Error("query_error", err)
