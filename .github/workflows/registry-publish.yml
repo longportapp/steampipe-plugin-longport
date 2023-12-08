@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     name: Build and publish
+    permissions:
+      contents: read
+      packages: write
     runs-on: ubuntu-latest
     steps:
       - uses: francois2metz/steampipe-plugin-build-push-action@v0
