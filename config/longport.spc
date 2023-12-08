@@ -1,5 +1,5 @@
 connection "longport" {
-  plugin = "longport"
+  plugin = "longportapp/longport"
 
   # app_key      = "YOUR_APP_KEY"
   # app_secret   = "YOUR_ACCESS_SECRET"

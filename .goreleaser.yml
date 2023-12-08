@@ -7,7 +7,7 @@ builds:
   - env:
       - CGO_ENABLED=0
       - GO111MODULE=on
-      - GOPRIVATE=github.com/longportapp
+      - GOPRIVATE=github.com/turbot
     goos:
       - linux
       - darwin
