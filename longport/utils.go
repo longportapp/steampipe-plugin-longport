@@ -65,12 +65,35 @@ func connect(ctx context.Context, d *plugin.QueryData) (*quote.QuoteContext, err
 }
 
 func symbolList(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) ([]string, error) {
-	quals := d.EqualsQuals
-	symbols := []string{quals["symbol"].GetStringValue()}
-	return symbols, nil
+	return equalList(ctx, d, nil, "symbol")
 }
 
 func symbolString(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData) (string, error) {
+	return equalString(ctx, d, nil, "symbol")
+}
+
+func equalList(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData, field string) ([]string, error) {
 	quals := d.EqualsQuals
-	return quals["symbol"].GetStringValue(), nil
+	vals := []string{quals[field].GetStringValue()}
+	return vals, nil
+}
+
+func equalString(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData, field string) (string, error) {
+	quals := d.EqualsQuals
+	return quals[field].GetStringValue(), nil
+}
+
+func equalInt(ctx context.Context, d *plugin.QueryData, _ *plugin.HydrateData, field string) (int, error) {
+	quals := d.EqualsQuals
+	return int(quals[field].GetInt64Value()), nil
+}
+
+// Get limit, default is 20
+func queryLimit(d *plugin.QueryData) int32 {
+	limit := int32(20)
+	if d.QueryContext.Limit != nil {
+		limit = int32(*d.QueryContext.Limit)
+	}
+
+	return limit
 }
