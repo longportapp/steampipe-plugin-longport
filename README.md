@@ -2,6 +2,12 @@
 
 Use SQL to query securities, quote from [LongPort](https://open.longportapp.com).
 
+通过 [Steampipe](https://steampipe.io) 与此插件集成，可以采用 SQL 的方式查询 [LongPort](https://open.longportapp.com) 的证券行情和订单数据。
+
+## Screenshots
+
+![steampipe-plugin-longport](https://github.com/longportapp/steampipe-plugin-longport/assets/5518/cfe784e4-081e-45d0-8781-a69948ee39f7)
+
 ## Quick start
 
 Install the plugin with [Steampipe](https://steampipe.io):
