@@ -23,6 +23,11 @@ where
   symbol in ("700.HK", "AAPL.US", "TSLA.US", "NFLX.US")
 ```
 
+## Tables
+
+- [longport_static_info](./docs/tables/longport_static_info.md)
+- [longport_quote](./docs/tables/longport_quote.md)
+
 ## Developing
 
 Prerequisites:
