@@ -9,7 +9,7 @@ Use SQL to query securities, quote from [LongPort](https://open.longportapp.com)
 Install the plugin with [Steampipe](https://steampipe.io):
 
 ```shell
-steampipe plugin install longport
+steampipe plugin install ghcr.io/longportapp/longport
 ```
 
 Run a query:

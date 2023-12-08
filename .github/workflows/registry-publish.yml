@@ -6,6 +6,10 @@ on:
       - 'v*'
 
 jobs:
-  registry_publish_workflow:
-    uses: turbot/steampipe-workflows/.github/workflows/registry-publish.yml@main
-    secrets: inherit
+  build:
+    name: Build and publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: francois2metz/steampipe-plugin-build-push-action@v0
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
