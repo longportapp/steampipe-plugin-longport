@@ -146,3 +146,39 @@ func transformDepth(ctx context.Context, d *transform.TransformData) (interface{
 
 	return items, nil
 }
+
+// https://github.com/longportapp/openapi-go/blob/main/quote/types.go#L340C6-L340C19
+func brokerColumns(optionalCols ...string) []*plugin.Column {
+	cols := []*plugin.Column{
+		// Top columns
+		{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Security code"},
+		{Name: "ask_brokers", Type: proto.ColumnType_JSON, Transform: transform.FromField("AskBrokers").Transform((transformBrokers)), Description: "Ask depth"},
+		{Name: "bid_brokers", Type: proto.ColumnType_JSON, Transform: transform.FromField("BidBrokers").Transform((transformBrokers)), Description: "Bid depth"},
+	}
+
+	return cols
+}
+
+func transformBrokers(ctx context.Context, d *transform.TransformData) (interface{}, error) {
+	items := []map[string]interface{}{}
+
+	if d.Value == nil {
+		return items, nil
+	}
+
+	brokers, ok := d.Value.([]*quote.Brokers)
+	if !ok {
+		return items, errors.New("transformBrokers failed")
+	}
+
+	for _, t := range brokers {
+		var item = map[string]interface{}{}
+		if t != nil {
+			item["position"] = t.Position
+			item["broker_ids"] = t.BrokerIds
+		}
+		items = append(items, item)
+	}
+
+	return items, nil
+}
