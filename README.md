@@ -16,6 +16,13 @@ Install the plugin with [Steampipe](https://steampipe.io):
 steampipe plugin install ghcr.io/longportapp/longport
 ```
 
+Upgrade new version:
+
+```shell
+steampipe plugin uninstall ghcr.io/longportapp/longport
+steampipe plugin install ghcr.io/longportapp/longport
+```
+
 Open `~/.steampipe/config/longport.spc` and setup your `AppKey`, `AppSecret` and `AccessToken`.
 
 You can get them from [LongPort OpenAPI](https://open.longportapp.com/en/docs/how-to-access-api).
