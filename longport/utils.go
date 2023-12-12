@@ -26,6 +26,9 @@ func getQuoteContext(ctx context.Context, d *plugin.QueryData) (*quote.QuoteCont
 
 	// First, use the token config
 	longportConfig := GetConfig(d.Connection)
+	plugin.Logger(ctx).Error("getQuoteContext", "longportConfig", longportConfig)
+	plugin.Logger(ctx).Error("getQuoteContext", "longportConfig", d.Connection.Name)
+	plugin.Logger(ctx).Error("getQuoteContext", "longportConfig", d.Connection.Config)
 	if longportConfig.AppKey != nil {
 		appKey = *longportConfig.AppKey
 	}
@@ -36,7 +39,11 @@ func getQuoteContext(ctx context.Context, d *plugin.QueryData) (*quote.QuoteCont
 		accessToken = *longportConfig.AccessToken
 	}
 
-	c, err := config.New()
+	if len(appKey) == 0 || len(appSecret) == 0 || len(accessToken) == 0 {
+		return nil, errors.New("app_key, app_secret and access_token must be configured")
+	}
+
+	c, err := config.New(config.WithConfigKey(appKey, appSecret, accessToken))
 	if err != nil {
 		return nil, errors.New("config.New() error: " + err.Error())
 	}
@@ -53,7 +60,6 @@ func getQuoteContext(ctx context.Context, d *plugin.QueryData) (*quote.QuoteCont
 		if err != nil {
 			return nil, errors.New("quote.NewFromCfg() error: " + err.Error())
 		}
-
 	} else {
 		// Credentials not set
 		return nil, errors.New("accessToken (or appKey, appSecret etc) must be configured")
@@ -89,7 +95,11 @@ func getTradeContext(ctx context.Context, d *plugin.QueryData) (*trade.TradeCont
 		accessToken = *longportConfig.AccessToken
 	}
 
-	c, err := config.New()
+	if len(appKey) == 0 || len(appSecret) == 0 || len(accessToken) == 0 {
+		return nil, errors.New("app_key, app_secret and access_token must be configured")
+	}
+
+	c, err := config.New(config.WithConfigKey(appKey, appSecret, accessToken))
 	if err != nil {
 		return nil, errors.New("config.New() error: " + err.Error())
 	}
@@ -101,15 +111,9 @@ func getTradeContext(ctx context.Context, d *plugin.QueryData) (*trade.TradeCont
 	var tradeContext *trade.TradeContext
 
 	// First, try to use the bearer token and OAuth 2.0
-	if accessToken != "" {
-		tradeContext, err = trade.NewFromCfg(c)
-		if err != nil {
-			return nil, errors.New("trade.NewFromCfg() error: " + err.Error())
-		}
-
-	} else {
-		// Credentials not set
-		return nil, errors.New("accessToken (or appKey, appSecret etc) must be configured")
+	tradeContext, err = trade.NewFromCfg(c)
+	if err != nil {
+		return nil, errors.New("trade.NewFromCfg() error: " + err.Error())
 	}
 
 	// Save to cache
