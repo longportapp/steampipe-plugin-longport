@@ -1,5 +1,3 @@
-Visit https://github.com/longportapp/steampipe-plugin-longport/releases
-
 ## v0.0.1 [TBD]
 
 _What's new?_

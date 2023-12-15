@@ -2,25 +2,12 @@ package longport
 
 import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
-	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/schema"
 )
 
 type longportConfig struct {
-	AppKey      *string `cty:"app_key"`
-	AppSecret   *string `cty:"app_secret"`
-	AccessToken *string `cty:"access_token"`
-}
-
-var ConfigSchema = map[string]*schema.Attribute{
-	"app_key": {
-		Type: schema.TypeString,
-	},
-	"app_secret": {
-		Type: schema.TypeString,
-	},
-	"access_token": {
-		Type: schema.TypeString,
-	},
+	AppKey      *string `hcl:"app_key"`
+	AppSecret   *string `hcl:"app_secret"`
+	AccessToken *string `hcl:"access_token"`
 }
 
 func ConfigInstance() interface{} {
