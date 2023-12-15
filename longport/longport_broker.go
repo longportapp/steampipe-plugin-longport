@@ -6,19 +6,19 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 
-func tableBrokers(ctx context.Context) *plugin.Table {
+func tableLongPortBroker(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
-		Name:        "longport_brokers",
+		Name:        "longport_broker",
 		Description: "Get Security Brokers.",
 		List: &plugin.ListConfig{
-			Hydrate:    listBrokers,
+			Hydrate:    listLongPortBroker,
 			KeyColumns: plugin.SingleColumn("symbol"),
 		},
 		Columns: brokerColumns(),
 	}
 }
 
-func listBrokers(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
+func listLongPortBroker(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
 	quoteContext, err := getQuoteContext(ctx, d)
 
 	if err != nil {

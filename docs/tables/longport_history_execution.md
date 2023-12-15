@@ -1,15 +1,15 @@
-# Table: `longport_today_executions`
+# Table: `longport_history_execution`
 
-Get Today Executions
+Get History Executions
 
-https://open.longportapp.com/en/docs/trade/execution/today_executions
+https://open.longportapp.com/en/docs/trade/execution/history_executions
 
 ## Examples
 
 - `symbol` is optional.
 
 ```sql
-select * from longport_today_executions;
+select * from longport_history_execution;
 ```
 
 Output:

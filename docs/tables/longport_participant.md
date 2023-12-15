@@ -1,4 +1,4 @@
-# Table: `longport_participants`
+# Table: `longport_participant`
 
 Get Broker IDs
 
@@ -9,7 +9,10 @@ https://open.longportapp.com/en/docs/quote/pull/broker-ids
 ## Examples
 
 ```sql
-select * from longport_participants limit 3;
+select
+   *
+from
+   longport_participant limit 3;
 ```
 
 Output:

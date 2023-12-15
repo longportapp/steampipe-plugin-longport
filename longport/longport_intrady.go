@@ -9,22 +9,22 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
-func tableIntraday(ctx context.Context) *plugin.Table {
+func tableLongPortIntraday(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "longport_intraday",
 		Description: "Get Security Intraday.",
 		List: &plugin.ListConfig{
-			Hydrate:    listIntraday,
+			Hydrate:    listLongPortIntraday,
 			KeyColumns: plugin.SingleColumn("symbol"),
 		},
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Symbol"},
-			{Name: "price", Type: proto.ColumnType_STRING, Transform: transform.FromField("Line.Price"), Description: "Close price of the minute"},
-			{Name: "volume", Type: proto.ColumnType_STRING, Transform: transform.FromField("Line.Volume"), Description: "Close price of the minute"},
+			{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Symbol of security."},
+			{Name: "price", Type: proto.ColumnType_STRING, Transform: transform.FromField("Line.Price"), Description: "Close price of the minute."},
+			{Name: "volume", Type: proto.ColumnType_STRING, Transform: transform.FromField("Line.Volume"), Description: "Close price of the minute."},
 			{Name: "turnover", Type: proto.ColumnType_STRING, Transform: transform.FromField("Line.Turnover"), Description: ""},
 			{Name: "avg_price", Type: proto.ColumnType_STRING, Transform: transform.FromField("Line.AvgPrice"), Description: ""},
-			{Name: "timestamp", Type: proto.ColumnType_INT, Transform: transform.FromField("Line.Timestamp"), Description: "Start time stamp of the minute"},
+			{Name: "timestamp", Type: proto.ColumnType_INT, Transform: transform.FromField("Line.Timestamp"), Description: "Start time stamp of the minute."},
 		},
 	}
 }
@@ -34,7 +34,7 @@ type Intrady struct {
 	Line   *quote.IntradayLine
 }
 
-func listIntraday(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
+func listLongPortIntraday(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
 	quoteContext, err := getQuoteContext(ctx, d)
 
 	if err != nil {

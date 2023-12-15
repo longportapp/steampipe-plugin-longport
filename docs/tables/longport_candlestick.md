@@ -1,4 +1,4 @@
-# Table: `longport_candlesticks`
+# Table: `longport_candlestick`
 
 Get Security Candlesticks
 
@@ -16,11 +16,13 @@ https://open.longportapp.com/en/docs/quote/pull/candlestick
 
 ```sql
 select
-  *
+   *
 from
-  longport_candlesticks
+   longport_candlestick
 where
-  symbol = 'TSLA.US' and period = 1 and adjust_type = 0;
+   symbol = 'TSLA.US'
+   and period = 1
+   and adjust_type = 0;
 ```
 
 Output:

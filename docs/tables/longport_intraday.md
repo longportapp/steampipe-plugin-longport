@@ -9,7 +9,12 @@ https://open.longportapp.com/en/docs/quote/pull/intraday
 ## Examples
 
 ```sql
-select * from longport_intraday where symbol = 'TSLA.US' limit 10;
+select
+   *
+from
+   longport_intraday
+where
+   symbol = 'TSLA.US' limit 10;
 ```
 
 Output:

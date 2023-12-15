@@ -6,18 +6,18 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 
-func tableParticipants(ctx context.Context) *plugin.Table {
+func tableLongPortParticipant(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
-		Name:        "longport_participants",
+		Name:        "longport_participant",
 		Description: "Get Broker IDs.",
 		List: &plugin.ListConfig{
-			Hydrate: listParticipants,
+			Hydrate: listLongPortParticipant,
 		},
 		Columns: participantColumns(),
 	}
 }
 
-func listParticipants(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
+func listLongPortParticipant(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
 	quoteContext, err := getQuoteContext(ctx, d)
 
 	if err != nil {

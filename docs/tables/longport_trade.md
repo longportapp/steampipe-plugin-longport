@@ -1,4 +1,4 @@
-# Table: `longport_trades`
+# Table: `longport_trade`
 
 Get Security Trades
 
@@ -9,7 +9,12 @@ https://open.longportapp.com/en/docs/quote/pull/trade
 ## Examples
 
 ```sql
-select * from longport_trades where symbol = 'TSLA.US' limit 10;
+select
+   *
+from
+   longport_trades
+where
+   symbol = 'TSLA.US' limit 10;
 ```
 
 The `limit` default is `20`;

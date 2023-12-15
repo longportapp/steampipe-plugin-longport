@@ -6,19 +6,19 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 
-func tableOptionQuote(ctx context.Context) *plugin.Table {
+func tableLongPortOptionQuote(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "longport_option_quote",
 		Description: "Real-time Quotes Of Option Securities.",
 		List: &plugin.ListConfig{
-			Hydrate:    listOptionQuote,
+			Hydrate:    listLongPortOptionQuote,
 			KeyColumns: plugin.SingleColumn("symbol"),
 		},
 		Columns: quoteColumns("pre_market_quote", "post_market_quote"),
 	}
 }
 
-func listOptionQuote(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
+func listLongPortOptionQuote(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
 	quoteContext, err := getQuoteContext(ctx, d)
 
 	if err != nil {

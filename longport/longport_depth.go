@@ -10,20 +10,20 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
-func tableDepth(ctx context.Context) *plugin.Table {
+func tableLongPortDepth(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "longport_depth",
 		Description: "Security Depth.",
 		List: &plugin.ListConfig{
-			Hydrate:    listDepth,
+			Hydrate:    listLongPortDepth,
 			KeyColumns: plugin.SingleColumn("symbol"),
 		},
 		// https://github.com/longportapp/openapi-go/blob/main/quote/types.go#L340C6-L340C19
 		Columns: []*plugin.Column{
 			// Top columns
-			{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Security code"},
-			{Name: "ask", Type: proto.ColumnType_JSON, Transform: transform.FromField("Ask").Transform((transformDepth)), Description: "Ask depth"},
-			{Name: "bid", Type: proto.ColumnType_JSON, Transform: transform.FromField("Bid").Transform((transformDepth)), Description: "Bid depth"},
+			{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Symbol of security."},
+			{Name: "ask", Type: proto.ColumnType_JSON, Transform: transform.FromField("Ask").Transform((transformDepth)), Description: "Ask depth."},
+			{Name: "bid", Type: proto.ColumnType_JSON, Transform: transform.FromField("Bid").Transform((transformDepth)), Description: "Bid depth."},
 		},
 	}
 }
@@ -34,7 +34,7 @@ type Depth struct {
 	Bid    *quote.Depth
 }
 
-func listDepth(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
+func listLongPortDepth(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
 	quoteContext, err := getQuoteContext(ctx, d)
 
 	if err != nil {

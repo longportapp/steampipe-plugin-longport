@@ -12,11 +12,23 @@ https://open.longportapp.com/en/docs/quote/pull/static
 
 ```sql
 select
-  symbol, name_en, exchange, currency, lot_size, total_shares, eps
+   symbol,
+   name_en,
+   exchange,
+   currency,
+   lot_size,
+   total_shares,
+   eps
 from
-  longport_static_info
+   longport_static_info
 where
-  symbol in ('BABA.US', 'TSLA.US', '700.HK');
+   symbol in
+   (
+      'BABA.US',
+      'TSLA.US',
+      '700.HK'
+   )
+;
 ```
 
 Output:

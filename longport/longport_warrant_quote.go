@@ -6,19 +6,19 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
 )
 
-func tableWarrantQuote(ctx context.Context) *plugin.Table {
+func tableLongPortWarrantQuote(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "longport_warrant_quote",
 		Description: "Real-time Quotes Of Warrant Securities.",
 		List: &plugin.ListConfig{
-			Hydrate:    listWarrantQuote,
+			Hydrate:    listLongPortWarrantQuote,
 			KeyColumns: plugin.SingleColumn("symbol"),
 		},
 		Columns: quoteColumns("warrant_extend"),
 	}
 }
 
-func listWarrantQuote(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
+func listLongPortWarrantQuote(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
 	quoteContext, err := getQuoteContext(ctx, d)
 
 	if err != nil {

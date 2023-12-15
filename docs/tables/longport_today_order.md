@@ -1,4 +1,4 @@
-# Table: `longport_today_orders`
+# Table: `longport_today_order`
 
 Get Today Orders
 
@@ -8,8 +8,22 @@ https://open.longportapp.com/en/docs/trade/order/today_orders
 
 ```sql
 select
-  symbol, order_id, status, stock_name, quantity, executed_quantity, price, executed_price, submitted_at, side, order_type, last_done, trigger_price, msg
-from longport_today_orders;
+   symbol,
+   order_id,
+   status,
+   stock_name,
+   quantity,
+   executed_quantity,
+   price,
+   executed_price,
+   submitted_at,
+   side,
+   order_type,
+   last_done,
+   trigger_price,
+   msg
+from
+   longport_today_order;
 ```
 
 Output:

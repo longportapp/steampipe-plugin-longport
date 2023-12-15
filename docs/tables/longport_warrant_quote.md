@@ -12,11 +12,18 @@ Get Real-time Quotes Of Warrant Securities
 
 ```sql
 select
-  *
+   *
 from
-  longport_warrant_quote
+   longport_warrant_quote
 where
-  symbol in ('BABA.US', 'TSLA.US', '700.HK', "AAPL.US");
+   symbol in
+   (
+      'BABA.US',
+      'TSLA.US',
+      '700.HK',
+      "AAPL.US"
+   )
+;
 ```
 
 Output:

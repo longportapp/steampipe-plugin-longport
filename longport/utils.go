@@ -26,9 +26,7 @@ func getQuoteContext(ctx context.Context, d *plugin.QueryData) (*quote.QuoteCont
 
 	// First, use the token config
 	longportConfig := GetConfig(d.Connection)
-	plugin.Logger(ctx).Error("getQuoteContext", "longportConfig", longportConfig)
-	plugin.Logger(ctx).Error("getQuoteContext", "longportConfig", d.Connection.Name)
-	plugin.Logger(ctx).Error("getQuoteContext", "longportConfig", d.Connection.Config)
+
 	if longportConfig.AppKey != nil {
 		appKey = *longportConfig.AppKey
 	}

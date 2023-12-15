@@ -8,19 +8,19 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
-func tableStaticInfo(ctx context.Context) *plugin.Table {
+func tableLongPortStaticInfo(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
 		Name:        "longport_static_info",
-		Description: "Basic Information Of Securities.",
+		Description: "Basic information about the securities.",
 		List: &plugin.ListConfig{
-			Hydrate:    listStaticInfo,
+			Hydrate:    listLongPortStaticInfo,
 			KeyColumns: plugin.SingleColumn("symbol"),
 		},
 		Columns: securityInfoColumns(),
 	}
 }
 
-func listStaticInfo(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
+func listLongPortStaticInfo(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
 	quoteContext, err := getQuoteContext(ctx, d)
 
 	if err != nil {
@@ -48,22 +48,22 @@ func listStaticInfo(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateD
 func securityInfoColumns() []*plugin.Column {
 	cols := []*plugin.Column{
 		// Top columns
-		{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Security code"},
-		{Name: "name_cn", Type: proto.ColumnType_STRING, Transform: transform.FromField("NameCn"), Description: "Security name (zh-CN)"},
-		{Name: "name_en", Type: proto.ColumnType_STRING, Transform: transform.FromField("NameEn"), Description: "Security name (en)"},
-		{Name: "name_hk", Type: proto.ColumnType_STRING, Transform: transform.FromField("NameHk"), Description: "Security name (zh-HK)"},
-		{Name: "exchange", Type: proto.ColumnType_STRING, Transform: transform.FromField("Exchange"), Description: "Exchange which the security belongs to"},
-		{Name: "currency", Type: proto.ColumnType_STRING, Transform: transform.FromField("Currency"), Description: "Trading currency"},
-		{Name: "lot_size", Type: proto.ColumnType_INT, Transform: transform.FromField("LotSize"), Description: "Lot size"},
-		{Name: "total_shares", Type: proto.ColumnType_INT, Transform: transform.FromField("TotalShares"), Description: "Total shares"},
-		{Name: "circulating_shares", Type: proto.ColumnType_INT, Transform: transform.FromField("CirculatingShares"), Description: "Circulating shares"},
-		{Name: "hk_shares", Type: proto.ColumnType_INT, Transform: transform.FromField("HkShares"), Description: "HK shares (only HK stocks)"},
-		{Name: "eps", Type: proto.ColumnType_STRING, Transform: transform.FromField("Eps"), Description: "Earnings per share"},
-		{Name: "eps_ttm", Type: proto.ColumnType_STRING, Transform: transform.FromField("EpsTtm"), Description: "Earnings per share (TTM)"},
-		{Name: "bps", Type: proto.ColumnType_STRING, Transform: transform.FromField("Bps"), Description: "Net assets per share"},
-		{Name: "dividend_yield", Type: proto.ColumnType_STRING, Transform: transform.FromField("DividendYield"), Description: "Dividend yield"},
-		{Name: "stock_derivatives", Type: proto.ColumnType_JSON, Transform: transform.FromField("StockDerivatives"), Description: "Types of supported derivatives"},
-		{Name: "board", Type: proto.ColumnType_STRING, Transform: transform.FromField("Board"), Description: "The board to whitch the security belongs, see Board for details"},
+		{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Symbol of security."},
+		{Name: "name_cn", Type: proto.ColumnType_STRING, Transform: transform.FromField("NameCn"), Description: "Security name (zh-CN)."},
+		{Name: "name_en", Type: proto.ColumnType_STRING, Transform: transform.FromField("NameEn"), Description: "Security name (en)."},
+		{Name: "name_hk", Type: proto.ColumnType_STRING, Transform: transform.FromField("NameHk"), Description: "Security name (zh-HK)."},
+		{Name: "exchange", Type: proto.ColumnType_STRING, Transform: transform.FromField("Exchange"), Description: "Exchange which the security belongs to."},
+		{Name: "currency", Type: proto.ColumnType_STRING, Transform: transform.FromField("Currency"), Description: "Trading currency."},
+		{Name: "lot_size", Type: proto.ColumnType_INT, Transform: transform.FromField("LotSize"), Description: "Lot size."},
+		{Name: "total_shares", Type: proto.ColumnType_INT, Transform: transform.FromField("TotalShares"), Description: "Total shares."},
+		{Name: "circulating_shares", Type: proto.ColumnType_INT, Transform: transform.FromField("CirculatingShares"), Description: "Circulating shares."},
+		{Name: "hk_shares", Type: proto.ColumnType_INT, Transform: transform.FromField("HkShares"), Description: "HK shares (only HK stocks)."},
+		{Name: "eps", Type: proto.ColumnType_STRING, Transform: transform.FromField("Eps"), Description: "Earnings per share."},
+		{Name: "eps_ttm", Type: proto.ColumnType_STRING, Transform: transform.FromField("EpsTtm"), Description: "Earnings per share (TTM)."},
+		{Name: "bps", Type: proto.ColumnType_STRING, Transform: transform.FromField("Bps"), Description: "Net assets per share."},
+		{Name: "dividend_yield", Type: proto.ColumnType_STRING, Transform: transform.FromField("DividendYield"), Description: "Dividend yield."},
+		{Name: "stock_derivatives", Type: proto.ColumnType_JSON, Transform: transform.FromField("StockDerivatives"), Description: "Types of supported derivatives."},
+		{Name: "board", Type: proto.ColumnType_STRING, Transform: transform.FromField("Board"), Description: "The board to whitch the security belongs, see Board for details."},
 	}
 	return cols
 }

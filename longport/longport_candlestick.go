@@ -10,25 +10,25 @@ import (
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin/transform"
 )
 
-func tableCandlesticks(ctx context.Context) *plugin.Table {
+func tableLongPortCandlestick(ctx context.Context) *plugin.Table {
 	return &plugin.Table{
-		Name:        "longport_candlesticks",
+		Name:        "longport_candlestick",
 		Description: "Get Security Trades.",
 		List: &plugin.ListConfig{
-			Hydrate:    listCandlesticks,
+			Hydrate:    listLongPortCandlestick,
 			KeyColumns: plugin.OptionalColumns([]string{"symbol", "period", "adjust_type"}),
 		},
 		Columns: []*plugin.Column{
-			{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Symbol"},
-			{Name: "close", Type: proto.ColumnType_STRING, Transform: transform.FromField("Candlestick.Close"), Description: "Close price"},
-			{Name: "open", Type: proto.ColumnType_STRING, Transform: transform.FromField("Candlestick.Open"), Description: "Open Price"},
-			{Name: "low", Type: proto.ColumnType_STRING, Transform: transform.FromField("Candlestick.Low"), Description: "Low Price"},
-			{Name: "high", Type: proto.ColumnType_STRING, Transform: transform.FromField("Candlestick.High"), Description: "High Price"},
-			{Name: "volume", Type: proto.ColumnType_INT, Transform: transform.FromField("Candlestick.Volume"), Description: "Volume"},
-			{Name: "turnover", Type: proto.ColumnType_STRING, Transform: transform.FromField("Candlestick.Turnover"), Description: "Turnover"},
-			{Name: "timestamp", Type: proto.ColumnType_INT, Transform: transform.FromField("Candlestick.Timestamp"), Description: "Timestamp"},
-			{Name: "period", Type: proto.ColumnType_INT, Transform: transform.FromField("Period"), Description: "Period"},
-			{Name: "adjust_type", Type: proto.ColumnType_INT, Transform: transform.FromField("AdjustType"), Description: "AdjustType"},
+			{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Symbol of security."},
+			{Name: "close", Type: proto.ColumnType_STRING, Transform: transform.FromField("Candlestick.Close"), Description: ""},
+			{Name: "open", Type: proto.ColumnType_STRING, Transform: transform.FromField("Candlestick.Open"), Description: ""},
+			{Name: "low", Type: proto.ColumnType_STRING, Transform: transform.FromField("Candlestick.Low"), Description: ""},
+			{Name: "high", Type: proto.ColumnType_STRING, Transform: transform.FromField("Candlestick.High"), Description: ""},
+			{Name: "volume", Type: proto.ColumnType_INT, Transform: transform.FromField("Candlestick.Volume"), Description: ""},
+			{Name: "turnover", Type: proto.ColumnType_STRING, Transform: transform.FromField("Candlestick.Turnover"), Description: ""},
+			{Name: "timestamp", Type: proto.ColumnType_INT, Transform: transform.FromField("Candlestick.Timestamp"), Description: "Timestamp of the candlestick."},
+			{Name: "period", Type: proto.ColumnType_INT, Transform: transform.FromField("Period"), Description: ""},
+			{Name: "adjust_type", Type: proto.ColumnType_INT, Transform: transform.FromField("AdjustType"), Description: ""},
 		},
 	}
 }
@@ -40,7 +40,7 @@ type Candlestick struct {
 	AdjustType  int
 }
 
-func listCandlesticks(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
+func listLongPortCandlestick(ctx context.Context, d *plugin.QueryData, p *plugin.HydrateData) (interface{}, error) {
 	quoteContext, err := getQuoteContext(ctx, d)
 
 	if err != nil {

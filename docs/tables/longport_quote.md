@@ -12,11 +12,26 @@ https://open.longportapp.com/en/docs/quote/pull/quote
 
 ```sql
 select
-  symbol, last_done, prev_close, open, high, low, volume, turnover, timestamp, trade_status
+   symbol,
+   last_done,
+   prev_close,
+   open,
+   high,
+   low,
+   volume,
+   turnover,
+   timestamp,
+   trade_status
 from
-  longport_quote
+   longport_quote
 where
-  symbol in ('BABA.US', 'TSLA.US', '700.HK');
+   symbol in
+   (
+      'BABA.US',
+      'TSLA.US',
+      '700.HK'
+   )
+;
 ```
 
 Output:
