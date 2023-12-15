@@ -1,5 +1,5 @@
 connection "longport" {
-  plugin = "ghcr.io/longportapp/longport"
+  plugin = "longportapp/longport"
 
   # The longport app key. Required.
   # This can also be set via the `LONGPORT_APP_KEY` environment variable.
