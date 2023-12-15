@@ -6,7 +6,7 @@ Use SQL to query securities, quote from [LongPort](https://open.longportapp.com)
 
 ## Screenshots
 
-![steampipe-plugin-longport](https://github.com/longportapp/steampipe-plugin-longport/assets/5518/e30266c3-48cb-4558-ab57-ae44d200e369)
+![steampipe-plugin-longport](https://github.com/longportapp/steampipe-plugin-longport/assets/5518/0ca055d7-797e-493b-8b24-e4eb87710bc8)
 
 ## Quick start
 
