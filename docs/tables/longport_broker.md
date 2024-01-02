@@ -1,14 +1,29 @@
-# Table: `longport_broker`
+# Table: longport_broker - Query Security Brokers using SQL
 
-Security Brokers
+The Security Broker table is used to obtain the broker queue data of security.
 
-This API is used to obtain the real-time broker queue data of security.
+https://open.longportapp.com/en/docs/quote/pull/brokers
 
-https://open.longportapp.com/en/docs/quote/pull/depth
+## Table Usage Guide
+
+The `longport_broker` table provides insights into the broker queue data of security. The `symbol` column is required to query the broker queue data of the security.
 
 ## Examples
 
-```sql
+### List all brokers by symbol
+
+You must specify the `symbol` to query the broker queue data of the security.
+
+```sql+postgres
+select
+   *
+from
+   longport_broker
+where
+   symbol = 'TSLA.US';
+```
+
+```sql+sqlite
 select
    *
 from

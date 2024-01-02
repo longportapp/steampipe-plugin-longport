@@ -1,14 +1,14 @@
-# Table: `longport_trade`
+# Table: longport_trade - Query Trades Detail of Security using SQL
 
-Get Security Trades
-
-This API is used to obtain the trades data of security.
+The Trade table is used to obtain the real-time trade details of security.
 
 https://open.longportapp.com/en/docs/quote/pull/trade
 
 ## Examples
 
-```sql
+### Query the latest 10 trades by symbol
+
+```sql+postgres
 select
    *
 from
@@ -17,23 +17,11 @@ where
    symbol = 'TSLA.US' limit 10;
 ```
 
-The `limit` default is `20`;
-
-Output:
-
-```
-+---------+---------+--------+------------+-----------+---------------+------------+--------------------------------+
-| symbol  | price   | volume | trade_type | direction | trade_session | timestamp  | _ctx                           |
-+---------+---------+--------+------------+-----------+---------------+------------+--------------------------------+
-| TSLA.US | 242.590 | 5      | I          | 0         | 1             | 1702026168 | {"connection_name":"longport"} |
-| TSLA.US | 242.640 | 1      | I          | 0         | 1             | 1702026176 | {"connection_name":"longport"} |
-| TSLA.US | 242.590 | 5      | I          | 0         | 1             | 1702026168 | {"connection_name":"longport"} |
-| TSLA.US | 242.590 | 2      | I          | 0         | 1             | 1702026168 | {"connection_name":"longport"} |
-| TSLA.US | 242.590 | 10     | I          | 0         | 1             | 1702026168 | {"connection_name":"longport"} |
-| TSLA.US | 242.590 | 9      | I          | 0         | 1             | 1702026176 | {"connection_name":"longport"} |
-| TSLA.US | 242.630 | 100    |            | 0         | 1             | 1702026176 | {"connection_name":"longport"} |
-| TSLA.US | 242.590 | 5      | I          | 0         | 1             | 1702026168 | {"connection_name":"longport"} |
-| TSLA.US | 242.590 | 10     | I          | 0         | 1             | 1702026168 | {"connection_name":"longport"} |
-| TSLA.US | 242.610 | 5      | I          | 0         | 1             | 1702026176 | {"connection_name":"longport"} |
-+---------+---------+--------+------------+-----------+---------------+------------+--------------------------------+
+```sql+sqlite
+select
+   *
+from
+   longport_trades
+where
+   symbol = 'TSLA.US' limit 10;
 ```

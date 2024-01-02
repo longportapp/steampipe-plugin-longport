@@ -59,7 +59,7 @@ Output:
 Download and install the latest LongPort plugin:
 
 ```bash
-steampipe plugin install ghcr.io/longportapp/longport
+steampipe plugin install longportapp/longport
 ```
 
 ### Credentials
@@ -79,7 +79,7 @@ Installing the latest longport plugin will create a config file (`~/.steampipe/c
 
 ```hcl
 connection "longport" {
-  plugin = "ghcr.io/longportapp/longport"
+  plugin = "longportapp/longport"
 
   # The longport app key. Required.
   # This can also be set via the `LONGPORT_APP_KEY` environment variable.
