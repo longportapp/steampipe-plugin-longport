@@ -113,6 +113,7 @@ Output:
 
 ### Trade
 
+- [longport_account_balance](./docs/tables/longport_account_balance.md)
 - [longport_history_execution](./docs/tables/longport_history_execution.md)
 - [longport_history_order](./docs/tables/longport_history_order.md)
 - [longport_today_executions](./docs/tables/longport_today_executions.md)

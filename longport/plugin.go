@@ -15,6 +15,7 @@ func Plugin(ctx context.Context) *plugin.Plugin {
 		},
 		DefaultTransform: transform.FromGo().NullIfZero(),
 		TableMap: map[string]*plugin.Table{
+			"longport_account_balance":   tableLongPortAccountBalance(ctx),
 			"longport_broker":            tableLongPortBroker(ctx),
 			"longport_candlestick":       tableLongPortCandlestick(ctx),
 			"longport_depth":             tableLongPortDepth(ctx),
