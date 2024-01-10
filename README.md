@@ -13,14 +13,14 @@ Use SQL to query securities, quote from [LongPort](https://open.longportapp.com)
 Install the plugin with [Steampipe](https://steampipe.io):
 
 ```shell
-steampipe plugin install longportapp/longport
+steampipe plugin install ghcr.io/longportapp/longport
 ```
 
 Upgrade new version:
 
 ```shell
-steampipe plugin uninstall longportapp/longport
-steampipe plugin install longportapp/longport
+steampipe plugin uninstall ghcr.io/longportapp/longport
+steampipe plugin install ghcr.io/longportapp/longport
 ```
 
 Open `~/.steampipe/config/longport.spc` and setup your `AppKey`, `AppSecret` and `AccessToken`.
@@ -29,7 +29,7 @@ You can get them from [LongPort OpenAPI](https://open.longportapp.com/en/docs/ho
 
 ```conf
 connection "longport" {
-  plugin = "longportapp/longport"
+  plugin = "ghcr.io/longportapp/longport"
 
   # The longport app key. Required.
   # This can also be set via the `LONGPORT_APP_KEY` environment variable.
