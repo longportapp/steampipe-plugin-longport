@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"os"
+	"strings"
 
 	"github.com/longportapp/openapi-go/config"
 	"github.com/longportapp/openapi-go/quote"
@@ -152,4 +153,14 @@ func queryLimit(d *plugin.QueryData) int32 {
 	}
 
 	return limit
+}
+
+func orderSide(side string) trade.OrderSide {
+	side = strings.ToLower(side)
+	switch side {
+	case "buy":
+		return trade.OrderSideBuy
+	default:
+		return trade.OrderSideSell
+	}
 }

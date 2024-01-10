@@ -2,7 +2,9 @@ package longport
 
 import (
 	"context"
+	"strings"
 
+	"github.com/longportapp/openapi-go"
 	"github.com/longportapp/openapi-go/trade"
 	"github.com/turbot/steampipe-plugin-sdk/v5/grpc/proto"
 	"github.com/turbot/steampipe-plugin-sdk/v5/plugin"
@@ -38,12 +40,20 @@ func listLongPortTodayOrder(ctx context.Context, d *plugin.QueryData, p *plugin.
 		return nil, err
 	}
 
+	market, err := equalString(ctx, d, p, "market")
+	if err != nil {
+		return nil, err
+	}
+
 	var params = trade.GetTodayOrders{}
 	if symbol != "" {
 		params.Symbol = symbol
 	}
 	if side != "" {
-		params.Side = trade.OrderSide(side)
+		params.Side = orderSide(side)
+	}
+	if market != "" {
+		params.Market = openapi.Market(strings.ToUpper(market))
 	}
 
 	var items []*trade.Order
@@ -62,6 +72,7 @@ func listLongPortTodayOrder(ctx context.Context, d *plugin.QueryData, p *plugin.
 func orderColumns() []*plugin.Column {
 	return []*plugin.Column{
 		{Name: "symbol", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol"), Description: "Symbol of security."},
+		{Name: "market", Type: proto.ColumnType_STRING, Transform: transform.FromField("Symbol").Transform((transformMarketFromSymbol)), Description: "Market of security."},
 		{Name: "order_id", Type: proto.ColumnType_STRING, Transform: transform.FromField("OrderId"), Description: "Order ID."},
 		{Name: "status", Type: proto.ColumnType_STRING, Transform: transform.FromField("Status"), Description: "Order status."},
 		{Name: "stock_name", Type: proto.ColumnType_STRING, Transform: transform.FromField("StockName"), Description: "Stock Name."},
@@ -88,4 +99,24 @@ func orderColumns() []*plugin.Column {
 		{Name: "outside_rth", Type: proto.ColumnType_STRING, Transform: transform.FromField("OutsideRth"), Description: "Enable or disable outside regular trading hours. Default is UnknownOutsideRth when the order is not a US stock."},
 		{Name: "remark", Type: proto.ColumnType_STRING, Transform: transform.FromField("Remark"), Description: ""},
 	}
+}
+
+func transformMarketFromSymbol(ctx context.Context, d *transform.TransformData) (interface{}, error) {
+	item := map[string]interface{}{}
+
+	if d.Value == nil {
+		return item, nil
+	}
+
+	symbol, ok := d.Value.(string)
+	if !ok {
+		return item, nil
+	}
+
+	parts := strings.Split(symbol, ".")
+	if len(parts) < 2 {
+		return item, nil
+	}
+
+	return strings.ToUpper(parts[1]), nil
 }
