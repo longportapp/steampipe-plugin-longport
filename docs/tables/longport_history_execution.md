@@ -1,22 +1,27 @@
-# Table: `longport_history_execution`
+# Table: longport_history_execution - Query Historical Executions using SQL
 
-Get History Executions
+The History Execution table is to query all of your historical orders that have been executed.
 
 https://open.longportapp.com/en/docs/trade/execution/history_executions
 
 ## Examples
 
-- `symbol` is optional.
+### Query History Executions by symbol
 
-```sql
-select * from longport_history_execution;
+- `symbol` is optional, if present, only return the executions of the specified symbol, otherwise return all executions.
+- `start_at` is optional, to limit the start time of the query, the format is UNIX timestamp in seconds, e.g.: `1650410999`.
+- `end_at` is optional, to limit the end time of the query, the format is UNIX timestamp in seconds, e.g.: `1650410999`.
+
+```sql+postgres
+select
+   *
+from
+   longport_history_execution;
 ```
 
-Output:
-
-```
-+--------+----------+----------+---------------+----------+-------+------+
-| symbol | order_id | trade_id | trade_done_at | quantity | price | _ctx |
-+--------+----------+----------+---------------+----------+-------+------+
-+--------+----------+----------+---------------+----------+-------+------+
+```sql+sqlite
+select
+   *
+from
+   longport_history_execution;
 ```
