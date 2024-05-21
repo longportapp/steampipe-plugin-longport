@@ -3,7 +3,7 @@ module github.com/longportapp/steampipe-plugin-longport
 go 1.21
 
 require (
-	github.com/longportapp/openapi-go v0.9.2
+	github.com/longportapp/openapi-go v0.11.0
 	github.com/turbot/steampipe-plugin-sdk/v5 v5.8.0
 )
 
@@ -63,7 +63,7 @@ require (
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
 	github.com/klauspost/compress v1.15.11 // indirect
-	github.com/longportapp/openapi-protobufs/gen/go v0.2.1 // indirect
+	github.com/longportapp/openapi-protobufs/gen/go v0.3.0 // indirect
 	github.com/longportapp/openapi-protocol/go v0.3.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.19 // indirect
