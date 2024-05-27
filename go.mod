@@ -3,7 +3,7 @@ module github.com/longportapp/steampipe-plugin-longport
 go 1.21
 
 require (
-	github.com/longportapp/openapi-go v0.11.0
+	github.com/longportapp/openapi-go v0.12.0
 	github.com/turbot/steampipe-plugin-sdk/v5 v5.8.0
 )
 
